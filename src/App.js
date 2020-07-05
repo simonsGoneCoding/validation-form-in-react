@@ -7,6 +7,7 @@ class App extends Component {
     email: "",
     pass: "",
     accept: false,
+    message: "",
 
     errors: {
       username: false,
@@ -23,6 +24,14 @@ class App extends Component {
     accept_incorrect: "accept T&C",
   };
 
+  componentDidUpdate() {
+    if (this.state.message !== "") {
+      setTimeout(() => {
+        this.setState({ message: "" });
+      }, 5000);
+    }
+  }
+
   handleChange = (e) => {
     const { name, type, value } = e.target;
 
@@ -37,7 +46,6 @@ class App extends Component {
     e.preventDefault();
 
     const validation = this.formValidation();
-    console.log(validation.pass.lenght);
 
     // clearing form
     if (validation.allCorrect) {
@@ -46,6 +54,7 @@ class App extends Component {
         email: "",
         pass: "",
         accept: false,
+        message: "form has been send out",
 
         errors: {
           username: false,
@@ -169,6 +178,7 @@ class App extends Component {
 
           <button>Submit</button>
         </form>
+        {this.state.message && <h3>{this.state.message}</h3>}
       </div>
     );
   }
